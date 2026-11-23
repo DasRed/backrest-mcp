@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/dasred/backrest-mcp/compare/v1.1.1...v1.2.0) (2026-11-23)
+
+
+### Features
+
+* improved dashboard ([62b8865](https://github.com/dasred/backrest-mcp/commit/62b886526559ae83636e9f406f74941c899efd04))
+
 ## [1.1.1](https://github.com/dasred/backrest-mcp/compare/v1.1.0...v1.1.1) (2026-11-23)
 
 
