@@ -74,7 +74,7 @@ describe('route mcp', () => {
             'get_peer_sync_states',
             'hash_password',
         ]);
-        expect(JSON.parse((call.result.content as {text: string}[])[0]!.text)).toEqual({planSummaries: [{id: 'daily'}]});
+        expect(JSON.parse((call.result.content as {text: string}[])[0]!.text)).toEqual({plans: [expect.objectContaining({id: 'daily', lastBackup: null})], repos: []});
     });
 
     it('publishes the server instructions', async () => {

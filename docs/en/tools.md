@@ -10,7 +10,7 @@ section: Reference
 
 | Tool                       | Kind      | Backrest procedure                  | Purpose                                              |
 |----------------------------|-----------|-------------------------------------|------------------------------------------------------|
-| `get_summary_dashboard`    | 📖 Read   | `GetSummaryDashboard`               | Success, failures and sizes of the last 30 days      |
+| `get_summary_dashboard`    | 📖 Read   | `GetSummaryDashboard`               | Status of all plans: last backup, failures, overdue |
 | `get_config`               | 📖 Read   | `GetConfig`                         | Repositories, plans, hooks, users                    |
 | `get_operations`           | 📖 Read   | `GetOperations`                     | Operation history with status and errors             |
 | `watch_operation_events`   | 📖 Read   | `GetOperationEvents` (stream)       | Follow running operations live                       |
@@ -48,7 +48,25 @@ Not available as tools: `Authentication/Login` (the server authenticates itself 
 
 ### `get_summary_dashboard`
 
-The dashboard of Backrest: per repository and plan the successful, failed and warning backups of the last 30 days, bytes scanned and added, number of snapshots, next backup and a per-day history. Parameters: none.
+The dashboard of Backrest, per plan and repository. By default in a compact form:
+
+| Field                                                   | Description                                                    |
+|---------------------------------------------------------|----------------------------------------------------------------|
+| `backupsSuccessLast30days`, `backupsFailedLast30days`, `backupsWarningLast30days` | Backups of the last 30 days by result      |
+| `bytesScannedLast30days`, `bytesAddedLast30days`        | Bytes read and added in the last 30 days                       |
+| `protectedBytes`                                        | Size of the data covered by the last good backup               |
+| `lastBackup`, `lastFailure`                             | Time, status, duration, bytes added and flow ID of the most recent backup and of the most recent one that did not succeed, or `null` |
+| `overdue`                                               | The last good backup is older than the schedule allows         |
+| `nextBackupTimeMs`                                      | Next scheduled backup, `null` without a schedule               |
+
+| Parameter         | Default | Description                                                                          |
+|-------------------|---------|--------------------------------------------------------------------------------------|
+| `plan_id`         | –       | Only this plan; without `repo_id` no repositories are returned                       |
+| `repo_id`         | –       | Only this repository; without `plan_id` no plans are returned                        |
+| `include_history` | `false` | The raw dashboard of Backrest with the backup charts and the per-day history instead |
+
+> [!TIP]
+> The raw dashboard is large – several 100 KB for a few dozen plans. Use `include_history` only together with `plan_id` or `repo_id`.
 
 ### `get_config`
 

@@ -5,6 +5,7 @@ import MCPToolGetDownloadURL from '@/service/mcp/MCPToolGetDownloadURL';
 import MCPToolGetLogs from '@/service/mcp/MCPToolGetLogs';
 import MCPToolGetMetrics from '@/service/mcp/MCPToolGetMetrics';
 import MCPToolGetOperations from '@/service/mcp/MCPToolGetOperations';
+import MCPToolGetSummaryDashboard from '@/service/mcp/MCPToolGetSummaryDashboard';
 import MCPToolRunCommand from '@/service/mcp/MCPToolRunCommand';
 import MCPToolRunRepoTask from '@/service/mcp/MCPToolRunRepoTask';
 import MCPToolStartBackup from '@/service/mcp/MCPToolStartBackup';
@@ -108,6 +109,20 @@ describe('MCP tools', () => {
         await new MCPToolGeneratePairingToken(client).call({label: 'eros', max_uses: 1, permissions: [{scopes: ['*'], type: 'read_operations'}], ttl_seconds: 60});
 
         expect(client.generatePairingToken).toHaveBeenCalledWith({label: 'eros', maxUses: 1, permissions: [{scopes: ['*'], type: 'PERMISSION_READ_OPERATIONS'}], ttlSeconds: 60});
+    });
+
+    it('get_summary_dashboard returns the compact form unless the history is requested', async () => {
+        const dashboard = {planSummaries: [{historyLast30days: [{overdue: false}], id: 'daily', recentBackups: {status: ['STATUS_SUCCESS'], timestampMs: ['5']}}, {id: 'weekly'}], repoSummaries: [{id: 'nas'}]};
+        const client    = createFakeBackrestAPIClient({getSummaryDashboard: vi.fn().mockResolvedValue(dashboard)});
+        const tool      = new MCPToolGetSummaryDashboard(client);
+
+        const compact = JSON.parse(text(await tool.call({include_history: false, plan_id: 'daily'})));
+        expect(compact.plans.map((plan: {id: string}) => plan.id)).toEqual(['daily']);
+        expect(compact.plans[0].lastBackup.timestampMs).toBe(5);
+        expect(compact.repos).toEqual([]);
+
+        const raw = JSON.parse(text(await tool.call({include_history: true, repo_id: 'nas'})));
+        expect(raw).toEqual({planSummaries: [], repoSummaries: [{id: 'nas'}]});
     });
 
     it('get_metrics filters the lines', async () => {

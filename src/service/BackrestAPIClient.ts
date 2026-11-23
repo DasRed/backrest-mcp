@@ -13,6 +13,7 @@ import type BackrestAPIRestoreRequestInterface from '@/model/api/BackrestAPIRest
 import type BackrestAPIScheduleTaskResponseInterface from '@/model/api/BackrestAPIScheduleTaskResponseInterface';
 import type BackrestAPISetupSFTPRequestInterface from '@/model/api/BackrestAPISetupSFTPRequestInterface';
 import type BackrestAPIStringListInterface from '@/model/api/BackrestAPIStringListInterface';
+import type BackrestAPISummaryDashboardInterface from '@/model/api/BackrestAPISummaryDashboardInterface';
 import type BackrestAPIValueInterface from '@/model/api/BackrestAPIValueInterface';
 import BackrestSecretMasker from '@/service/BackrestSecretMasker';
 import ConnectEnvelopeDecoder from '@/service/ConnectEnvelopeDecoder';
@@ -200,7 +201,7 @@ export default class BackrestAPIClient {
         return states.map((state) => this.masker.maskPeerState(state));
     }
 
-    async getSummaryDashboard(): Promise<Record<string, unknown>> {
+    async getSummaryDashboard(): Promise<BackrestAPISummaryDashboardInterface> {
         return this.call(BackrestProcedureEnum.GET_SUMMARY_DASHBOARD);
     }
 
