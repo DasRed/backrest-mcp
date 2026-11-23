@@ -45,3 +45,4 @@ Backrest only documents `Backup` and `GetOperations` as stable. The other proced
 1. [Installation](installation.md)
 2. [Configuration](configuration.md)
 3. [Connect to Claude](claude.md)
+4. [Other MCP clients](clients.md)
