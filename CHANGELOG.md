@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/dasred/backrest-mcp/compare/v1.1.0...v1.1.1) (2026-11-23)
+
+
+### Bug Fixes
+
+* adding deploy and mcp registry ([b39bb96](https://github.com/dasred/backrest-mcp/commit/b39bb96c7bac0ff52ddc128f162aa7768f6b189b))
+
 # [1.1.0](https://github.com/dasred/backrest-mcp/compare/v1.0.0...v1.1.0) (2026-11-23)
 
 
