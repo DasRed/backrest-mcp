@@ -35,5 +35,4 @@ npm run build
 Releases are created by semantic-release from Conventional Commits on `main`.
 
 ## License
-
 [MIT](LICENSE)
