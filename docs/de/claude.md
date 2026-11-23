@@ -1,6 +1,6 @@
 ---
 title: In Claude einbinden
-description: backrest-mcp als Custom Connector in Claude (Web, Desktop, Mobile) oder als Remote-MCP-Server in Claude Code einbinden, die Verbindung testen und Fehler finden.
+description: backrest-mcp als Custom Connector in Claude (Web, Desktop, Mobile), als Remote-MCP-Server in Claude Code oder per JSON-Konfiguration in anderen MCP-Clients einbinden, die Verbindung testen und Fehler finden.
 order: 30
 slug: claude
 section: Einrichtung
@@ -35,6 +35,52 @@ claude mcp add --transport http backrest https://backrest.mcp.example.com/mcp \
 ```
 
 Dafür muss auf dem Server `BACKREST_MCP_AUTH_TOKEN` gesetzt sein.
+
+## Andere MCP-Clients (JSON-Konfiguration)
+
+Viele MCP-Clients werden über einen JSON-Eintrag unter `mcpServers` konfiguriert, z. B. die `.mcp.json` von Claude Code oder Clients mit eigener Weboberfläche. Für backrest-mcp sieht der Eintrag so aus:
+
+```json
+{
+  "mcpServers": {
+    "backrest": {
+      "type": "http",
+      "url": "https://backrest.mcp.example.com/mcp",
+      "headers": {
+        "Authorization": "Bearer dein-mcp-auth-token"
+      }
+    }
+  }
+}
+```
+
+- `type` heißt je nach Client `http` oder `streamable-http`.
+- `headers` lässt du weg, wenn `BACKREST_MCP_AUTH_TOKEN` auf dem Server nicht gesetzt ist.
+- Solche Clients verbinden sich von deinem Rechner aus. Hier reicht deshalb auch eine Adresse im Heimnetz, z. B. `http://192.168.1.10:3000/mcp`.
+
+Clients, die nur lokale Server per stdio starten (z. B. die `claude_desktop_config.json` von Claude Desktop), bindest du über [mcp-remote](https://www.npmjs.com/package/mcp-remote) an:
+
+```json
+{
+  "mcpServers": {
+    "backrest": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-remote",
+        "https://backrest.mcp.example.com/mcp",
+        "--header",
+        "Authorization:${AUTH_HEADER}"
+      ],
+      "env": {
+        "AUTH_HEADER": "Bearer dein-mcp-auth-token"
+      }
+    }
+  }
+}
+```
+
+Der Token steht in `env`, weil manche Clients Leerzeichen in `args` nicht sauber übergeben. Für eine `http://`-Adresse außerhalb von `localhost` braucht mcp-remote zusätzlich `--allow-http`.
 
 ## Testen
 
