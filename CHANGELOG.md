@@ -1,3 +1,9 @@
+## [1.2.2](https://github.com/dasred/backrest-mcp/compare/v1.2.1...v1.2.2) (2026-11-24)
+
+### Bug Fixes
+
+* homepage fixed ([014819f](https://github.com/dasred/backrest-mcp/commit/014819f84a74b1709526e98b7ffc5fa90fba552d))
+
 ## [1.2.1](https://github.com/dasred/backrest-mcp/compare/v1.2.0...v1.2.1) (2026-11-24)
 
 ### Bug Fixes
