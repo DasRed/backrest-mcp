@@ -1,3 +1,15 @@
+## [1.2.1](https://github.com/dasred/backrest-mcp/compare/v1.2.0...v1.2.1) (2026-11-24)
+
+### Bug Fixes
+
+* update github workflows ([c4f6e47](https://github.com/dasred/backrest-mcp/commit/c4f6e479478626d31ac6b78a2ec27c7998f10004))
+
+### Documentation
+
+* other MCP clients (JSON configuration) ([257de4f](https://github.com/dasred/backrest-mcp/commit/257de4f28adc4ab0b11f7d4c8e5fbb93b513002a))
+* other MCP clients (JSON configuration) ([500aaa1](https://github.com/dasred/backrest-mcp/commit/500aaa14561f1b8c2799618f03d5bcb22570a0e8))
+* other MCP clients (JSON configuration) ([eb098a6](https://github.com/dasred/backrest-mcp/commit/eb098a6bac98ea1f71d3df399f861e49149e3c1b))
+
 # [1.2.0](https://github.com/dasred/backrest-mcp/compare/v1.1.1...v1.2.0) (2026-11-23)
 
 

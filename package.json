@@ -1,6 +1,6 @@
 {
     "name": "@dasred/backrest-mcp",
-    "version": "1.2.0",
+    "version": "1.2.1",
     "description": "Streamable HTTP MCP server for the Backrest API (restic web UI and orchestrator), packaged as a Docker image",
     "type": "module",
     "author": "Marco Starker",
